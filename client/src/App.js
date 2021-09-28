@@ -4,17 +4,17 @@ import SideBar from "./components/SideBar/SideBar.jsx";
 import Navbar from "./components/NavBar/NavBar.jsx";
 import { logOutAction } from "./redux/actions/user-action";
 import AppRoutes from "./App-routes";
-import Login from "./containers/Login/Login.jsx";
 import { Redirect } from "react-router";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
+import Login from "./containers/Login/Login.jsx";
 import "./App.scss";
 
-const App = ({ loggedInUserData }) => {
+const App = ({ loggedInUserData, isUserLoggedIn }) => {
   return (
     <>
-      {Object.keys(loggedInUserData).length === 0 ? (
-        <Redirect path="/login" component={Login} />
+      {!isUserLoggedIn ? (
+        <Route path="/" component={Login} />
       ) : (
         <Container fluid>
           <Navbar />
@@ -35,6 +35,7 @@ const App = ({ loggedInUserData }) => {
 const mapStateToProps = (state) => ({
   todoList: state.toDoListState.taskList,
   loggedInUserData: state.userState.userData,
+  isUserLoggedIn: state.userState.isLoginSuccess,
 });
 const mapDispatchToProps = (dispatch) => ({
   logOut: (callback) => dispatch(logOutAction(callback)),

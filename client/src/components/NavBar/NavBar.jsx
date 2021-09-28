@@ -1,13 +1,12 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import firebase from "../../firebase";
+import {  Row, Col } from "react-bootstrap";
 import { FiLogOut } from "react-icons/fi";
 import { logOutAction } from "../../redux/actions/user-action";
 import { connect } from "react-redux";
-
+import { Redirect } from "react-router-dom";
 import styles from "./NavBar.module.scss";
 
-const NavBar = ({ logOut, history }) => {
+const NavBar = ({ logOut }) => {
   return (
     <Row className={styles.topRowContainer}>
       <Col xs={{ span: 1, offset: 11 }} className={styles.rightContainer}>
@@ -15,7 +14,7 @@ const NavBar = ({ logOut, history }) => {
           className={styles.logoutContainer}
           onClick={() =>
             logOut(() => {
-              history.push("/login");
+              return <Redirect to="/" />
             })
           }
         >
@@ -29,7 +28,7 @@ const NavBar = ({ logOut, history }) => {
   );
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = (dispatch) => ({
   logOut: (callback) => dispatch(logOutAction(callback)),

@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
-import styles from "./AddToDo.module.scss";
+import React from "react";
+import { Form, Row, Col } from "react-bootstrap";
 import { BsFillPlusCircleFill } from "react-icons/bs";
-const AddToDo = ({
-  toDoDataListProps,
-  onChangeTaskHandler,
-  task,
-  addingTaskHandler,
-}) => {
+import styles from "./AddToDo.module.scss";
+
+const AddToDo = ({ onChangeTaskHandler, task, addingTaskHandler }) => {
   return (
     <Row className="mb-3">
-      <Col xs={{span:10, offset:1}} className={styles.addTaskContainer}>
+      <Col xs={{ span: 10, offset: 1 }} className={styles.addTaskContainer}>
         <Form.Control
           onChange={(e) => {
             onChangeTaskHandler(e.target.value);

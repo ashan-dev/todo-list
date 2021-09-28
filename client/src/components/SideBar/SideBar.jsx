@@ -2,10 +2,9 @@ import React from "react";
 import { Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import { FiHome, FiUser } from "react-icons/fi";
-
 import "./SideBar.scss";
 
-function SideBar() {
+const SideBar = () => {
   return (
     <Nav className="col-md-2 d-md-block sidebar" activeKey="/">
       <Nav.Item className="sidebar-item">

@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import React from "react";
+import { Container, Row } from "react-bootstrap";
 import AddToDo from "../../components/AddToDo/AddToDo.jsx";
 import ToDoList from "../../components/ToDoList/ToDoList.jsx";
+import useHome from "./useHome";
 import { connect } from "react-redux";
 import {
   toDoDataListAction,
   updateToDoDatalistAction,
   deleteToDoDatalistAction,
 } from "../../redux/actions/toDoList-action";
-
 
 import styles from "./Home.module.scss";
 
@@ -18,27 +18,18 @@ const Home = ({
   todoList,
   deleteToDoDatalistProps,
 }) => {
-  const [task, setTask] = useState(null);
+  const [
+    task,
+    addingTaskHandler,
+    onChangeTaskHandler,
+    completedTaskHandler,
+    deletedTaskHandler,
+  ] = useHome({
+    toDoDataListProps,
+    updatingToDoDatalistProps,
+    deleteToDoDatalistProps,
+  });
 
-  const addingTaskHandler = () => {
-    toDoDataListProps(task);
-    setTask(null);
-  };
-
-  const onChangeTaskHandler = (task) => {
-    setTask({
-      task: task,
-      completed: false,
-    });
-  };
-
-  const completedTaskHandler = (id) => {
-    updatingToDoDatalistProps(id);
-  };
-
-  const deletedTaskHandler = (id) => {
-    deleteToDoDatalistProps(id);
-  };
   return (
     <>
       <Container className={styles.homeContainer} fluid>
