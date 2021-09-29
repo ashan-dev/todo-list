@@ -17,7 +17,7 @@ const ToDoList = ({ todoList, completedTaskHandler, deletedTaskHandler }) => {
                 <ToDoItem
                   key={id}
                   task={task}
-                  id={id}
+                  id={task.key}
                   completedTaskHandler={completedTaskHandler}
                   deletedTaskHandler={deletedTaskHandler}
                 />
@@ -31,7 +31,7 @@ const ToDoList = ({ todoList, completedTaskHandler, deletedTaskHandler }) => {
                 <ToDoItem
                   key={id}
                   task={task}
-                  id={id}
+                  id={task.key}
                   completedTaskHandler={completedTaskHandler}
                   deletedTaskHandler={deletedTaskHandler}
                 />

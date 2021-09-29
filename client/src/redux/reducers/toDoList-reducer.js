@@ -2,7 +2,7 @@ import {
   ADD_TODO_DATA_STATE,
   UPDATE_TODO_DATE_STATE,
   DELETE_TODO_TASK_STATE,
-} from "../actions/toDoList-action";
+} from '../actions/toDoList-action';
 
 const initialState = {
   taskList: [],
@@ -11,11 +11,12 @@ const initialState = {
 const toDoListReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TODO_DATA_STATE:
-      const addedTaskArray = [...state.taskList, action.addToDoData];
+      const taskList = state?.taskList || [];
+      const addedTaskArray = [...taskList, action.addToDoData];
       return { ...state, taskList: addedTaskArray };
 
     case UPDATE_TODO_DATE_STATE:
-      const toDoListArr = state.taskList.map((dataObj, index) => {
+      const toDoListArr = state?.taskList.map((dataObj, index) => {
         if (index === action.toDoTaskId) {
           return {
             ...dataObj,
@@ -28,7 +29,7 @@ const toDoListReducer = (state = initialState, action) => {
       return { ...state, taskList: toDoListArr };
 
     case DELETE_TODO_TASK_STATE:
-      console.log("test");
+      console.log('test');
       const filteredArr = state.taskList.filter(
         (dataObj, index) => index !== action.deleteTaskId
       );

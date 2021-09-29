@@ -52,7 +52,7 @@ const Home = ({
 };
 
 const mapStateToProps = (state) => ({
-  todoList: state.toDoListState.taskList,
+  todoList: state.toDoListState?.taskList,
 });
 
 const mapDispatchToProps = (dispatch) => ({

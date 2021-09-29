@@ -1,4 +1,4 @@
-import firebase from "../../firebase";
+import firebase from '../../firebase';
 
 export const RESET_SIGN_IN_STATE = 'RESET_SIGN_IN_STATE';
 
@@ -12,41 +12,39 @@ export const SET_FIREBASE_LOGOUT_PENDING = 'SET_FIREBASE_LOGOUT_PENDING';
 export const SET_FIREBASE_LOGOUT_SUCCESS = 'SET_FIREBASE_LOGOUT_SUCCESS';
 export const SET_FIREBASE_LOGOUT_ERROR = 'SET_FIREBASE_LOGOUT_ERROR';
 
-export const SET_FIREBASE_UPDATE_USER_PENDING = 'SET_FIREBASE_UPDATE_USER_PENDING';
-export const SET_FIREBASE_UPDATE_USER_SUCCESS = 'SET_FIREBASE_UPDATE_USER_SUCCESS';
+export const SET_FIREBASE_UPDATE_USER_PENDING =
+  'SET_FIREBASE_UPDATE_USER_PENDING';
+export const SET_FIREBASE_UPDATE_USER_SUCCESS =
+  'SET_FIREBASE_UPDATE_USER_SUCCESS';
 export const SET_FIREBASE_UPDATE_USER_ERROR = 'SET_FIREBASE_UPDATE_USER_ERROR';
 
-
-const setLoginPending = isLoginPending => ({
+const setLoginPending = (isLoginPending) => ({
   type: SET_FIREBASE_LOGIN_PENDING,
   isLoginPending,
 });
 
-const setLoginSuccess = (
-  isLoginSuccess,
-  userData,
-) => ({
+const setLoginSuccess = (isLoginSuccess, userData) => ({
   type: SET_FIREBASE_LOGIN_SUCCESS,
   isLoginSuccess,
   userData: userData,
 });
 
-const setLoginError = loginError => ({
+const setLoginError = (loginError) => ({
   type: SET_FIREBASE_LOGIN_ERROR,
   loginError,
 });
 
-const setLogOutPending = isLogOutPending => ({
+const setLogOutPending = (isLogOutPending) => ({
   type: SET_FIREBASE_LOGOUT_PENDING,
   isLogOutPending,
 });
 
 const setLogOutSuccess = (isLogOutSuccess) => ({
   type: SET_FIREBASE_LOGOUT_SUCCESS,
-  isLogOutSuccess
+  isLogOutSuccess,
 });
 
-const setLogOutError = logOutError => ({
+const setLogOutError = (logOutError) => ({
   type: SET_FIREBASE_LOGOUT_ERROR,
   logOutError,
 });
@@ -55,7 +53,7 @@ const resetSignInState = () => ({
   type: RESET_SIGN_IN_STATE,
 });
 
-const setUserUpdatePending = isUserUpdatePending => ({
+const setUserUpdatePending = (isUserUpdatePending) => ({
   type: SET_FIREBASE_UPDATE_USER_PENDING,
   isUserUpdatePending,
 });
@@ -63,32 +61,35 @@ const setUserUpdatePending = isUserUpdatePending => ({
 const setUserUpdateSuccess = (isUserUpdateSuccess, userData) => ({
   type: SET_FIREBASE_UPDATE_USER_SUCCESS,
   isUserUpdateSuccess,
-  userData
+  userData,
 });
 
-const setUserUpdateError = userUpdateError => ({
+const setUserUpdateError = (userUpdateError) => ({
   type: SET_FIREBASE_UPDATE_USER_ERROR,
   userUpdateError,
 });
+
 export const loginAction = (loginData, onSuccessCallback) => {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch(setLoginPending(true));
     dispatch(setLoginSuccess(false));
     dispatch(setLoginError(null));
     try {
-      const userData = await firebase.auth().signInWithEmailAndPassword(loginData.email, loginData.password);
+      const userData = await firebase
+        .auth()
+        .signInWithEmailAndPassword(loginData.email, loginData.password);
       dispatch(setLoginPending(false));
       dispatch(setLoginSuccess(true, userData.user));
       onSuccessCallback();
     } catch (err) {
-      dispatch(setLoginError({message: 'Network error'}));
+      dispatch(setLoginError({ message: 'Network error' }));
       throw err;
     }
   };
 };
 
 export const userUpdateAction = (userData, uid, onSuccessCallback) => {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch(setUserUpdatePending(true));
     dispatch(setUserUpdateSuccess(false));
     dispatch(setUserUpdateError(null));
@@ -98,17 +99,18 @@ export const userUpdateAction = (userData, uid, onSuccessCallback) => {
       dispatch(setUserUpdateSuccess(true, updatedUserData.user));
       onSuccessCallback();
     } catch (err) {
-      dispatch(setUserUpdateError({message: 'Network error'}));
+      dispatch(setUserUpdateError({ message: 'Network error' }));
       throw err;
     }
   };
 };
+
 export const signInErrorResetAction = () => ({
   type: RESET_SIGN_IN_ERROR_STATE,
 });
 
 export const logOutAction = (onSuccessCallback) => {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch(setLogOutPending(true));
     dispatch(setLogOutSuccess(false));
     dispatch(setLogOutError(null));
@@ -119,14 +121,14 @@ export const logOutAction = (onSuccessCallback) => {
       dispatch(setLogOutSuccess(true));
       onSuccessCallback();
     } catch (err) {
-      dispatch(setLogOutError({message: 'Logout error'}));
+      dispatch(setLogOutError({ message: 'Logout error' }));
       throw err;
     }
   };
 };
 
 export const resetSignInStateAction = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     dispatch(resetSignInState());
   };
 };

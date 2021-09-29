@@ -1,18 +1,10 @@
-import React, { useEffect } from "react";
-import Home from "./containers/Home/Home.jsx";
-import Profile from "./containers/Profile/Profile.jsx";
-import { Route, useHistory } from "react-router-dom";
-import { connect } from "react-redux";
+import React from 'react';
+import { Route } from 'react-router-dom';
 
-const AppRoutes = ({
-  permissions,
-  apartmentComplexesLoad,
-  userData,
-  isLoginSuccess,
+const Home = React.lazy(() => import('./containers/Home/Home.jsx'));
+const Profile = React.lazy(() => import('./containers/Profile/Profile.jsx'));
 
-}) => {
-  const history = useHistory();
-
+const AppRoutes = () => {
   return (
     <React.Fragment>
       <Route path="/" exact component={Home} />
@@ -21,11 +13,4 @@ const AppRoutes = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  loggedInUserData: state.userState.userData,
-  isUserLoggedIn: state.userState.isLoginSuccess,
-});
-
-const mapDispatchToProps = (dispatch) => ({})
-
-export default connect(mapStateToProps, mapDispatchToProps)(AppRoutes);
+export default AppRoutes;
