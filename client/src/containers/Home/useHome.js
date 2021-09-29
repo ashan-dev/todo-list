@@ -6,12 +6,12 @@ const useHome = ({
   deleteToDoDatalistProps,
 }) => {
   const [task, setTask] = useState(null);
+  const [editedTask, setEditedTask] = useState(null);
 
   const addingTaskHandler = () => {
     if (task) {
       toDoDataListProps(task);
     }
-
     setTask(null);
   };
 
@@ -20,6 +20,15 @@ const useHome = ({
       task: task,
       completed: false,
     });
+  };
+
+  const onEditTaskHandler = (task) => {
+    setEditedTask(task);
+  };
+
+  const editTaskHandler = (id) => {
+    alert("test");
+    console.log(id);
   };
 
   const completedTaskHandler = (id) => {
@@ -31,11 +40,16 @@ const useHome = ({
   };
 
   return [
-    task,
-    addingTaskHandler,
-    onChangeTaskHandler,
-    completedTaskHandler,
-    deletedTaskHandler,
+    {
+      task,
+      editedTask,
+      addingTaskHandler,
+      onChangeTaskHandler,
+      onEditTaskHandler,
+      completedTaskHandler,
+      deletedTaskHandler,
+      editTaskHandler,
+    },
   ];
 };
 

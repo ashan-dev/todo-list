@@ -26,7 +26,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
-    "test": "jest --verbose",
+    "test": "jest --coverage || true",
     "test:update": "jest -u"
   },
   "eslintConfig": {
@@ -48,8 +48,9 @@
     ]
   },
   "devDependencies": {
-    "jest": "^27.2.3",
-    "react-test-renderer": "^17.0.2"
+    "jest": "26.6.3",
+    "react-test-renderer": "^17.0.2",
+    "redux-mock-store": "^1.5.4"
   },
   "jest": {
     "moduleNameMapper": {

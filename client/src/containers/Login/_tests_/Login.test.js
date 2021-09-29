@@ -2,17 +2,19 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
-import Home from '../Home.jsx';
+import Login from '../Login.jsx';
 
 const mockStore = configureMockStore();
 const store = mockStore({
-  toDoListState: [],
+  userState: {
+    userData: null,
+  },
 });
 
-test('Home renders correctly', () => {
+test('Login renders correctly', () => {
   const component = renderer.create(
     <Provider store={store}>
-      <Home />
+      <Login />
     </Provider>
   );
   const tree = component.toJSON();

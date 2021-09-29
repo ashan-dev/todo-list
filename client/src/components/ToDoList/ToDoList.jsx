@@ -3,7 +3,14 @@ import { Row, Col } from "react-bootstrap";
 import ToDoItem from "./../ToDoItem/ToDoItem";
 import useTodoList from "./useToDoList.js";
 
-const ToDoList = ({ todoList, completedTaskHandler, deletedTaskHandler }) => {
+const ToDoList = ({
+  todoList,
+  editedTask,
+  onEditTaskHandler,
+  editTaskHandler,
+  completedTaskHandler,
+  deletedTaskHandler,
+}) => {
   const [pendingTodoList, completeTodoList] = useTodoList({ todoList });
   return (
     <>
@@ -18,13 +25,18 @@ const ToDoList = ({ todoList, completedTaskHandler, deletedTaskHandler }) => {
                   key={id}
                   task={task}
                   id={task.key}
+                  editedTask={editedTask}
                   completedTaskHandler={completedTaskHandler}
                   deletedTaskHandler={deletedTaskHandler}
+                  onEditTaskHandler={onEditTaskHandler}
+                  editTaskHandler={editTaskHandler}
                 />
               ))}
           </>
           <>
-            {completeTodoList && completeTodoList.length > 0 && <p>Completed</p>}
+            {completeTodoList && completeTodoList.length > 0 && (
+              <p>Completed</p>
+            )}
             {completeTodoList &&
               completeTodoList.length > 0 &&
               completeTodoList.map((task, id) => (
@@ -34,6 +46,7 @@ const ToDoList = ({ todoList, completedTaskHandler, deletedTaskHandler }) => {
                   id={task.key}
                   completedTaskHandler={completedTaskHandler}
                   deletedTaskHandler={deletedTaskHandler}
+                  editTaskHandler={editTaskHandler}
                 />
               ))}
           </>

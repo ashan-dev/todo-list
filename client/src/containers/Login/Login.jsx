@@ -1,12 +1,13 @@
 import React from "react";
-import { withRouter, Redirect } from "react-router";
-import { Container, Row } from "react-bootstrap";
+import { Redirect } from "react-router";
 import { connect } from "react-redux";
+import { useHistory } from 'react-router-dom';
 import { handleLogin } from "./Login.js";
 import { loginAction } from "../../redux/actions/user-action";
 import styles from "./Login.module.scss";
 
-const Login = ({ history, login, loggedInUserData }) => {
+const Login = ({ login, loggedInUserData }) => {
+  const history = useHistory()
   if (loggedInUserData && Object.keys(loggedInUserData).length > 0) {
     return <Redirect to="/" />;
   } else {
@@ -43,4 +44,4 @@ const mapDispatchToProps = (dispatch) => ({
   login: (loginData, callback) => dispatch(loginAction(loginData, callback)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

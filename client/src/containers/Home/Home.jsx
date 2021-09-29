@@ -19,11 +19,16 @@ const Home = ({
   deleteToDoDatalistProps,
 }) => {
   const [
-    task,
-    addingTaskHandler,
-    onChangeTaskHandler,
-    completedTaskHandler,
-    deletedTaskHandler,
+    {
+      task,
+      editedTask,
+      addingTaskHandler,
+      onChangeTaskHandler,
+      editTaskHandler,
+      onEditTaskHandler,
+      completedTaskHandler,
+      deletedTaskHandler,
+    },
   ] = useHome({
     toDoDataListProps,
     updatingToDoDatalistProps,
@@ -42,6 +47,9 @@ const Home = ({
           />
           <ToDoList
             todoList={todoList}
+            editedTask={editedTask}
+            editTaskHandler={editTaskHandler}
+            onEditTaskHandler={onEditTaskHandler}
             completedTaskHandler={completedTaskHandler}
             deletedTaskHandler={deletedTaskHandler}
           />
