@@ -18,10 +18,10 @@ const NavBar = ({ logOut }) => {
             })
           }
         >
-          <span>
+          <span className={styles.logOutIcon}>
             <FiLogOut />
           </span>
-          <p>Log Out</p>
+          <p className={styles.logoutText}>Log Out</p>
         </div>
       </Col>
     </Row>

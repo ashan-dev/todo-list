@@ -1,19 +1,36 @@
-.topRowContainer{
-    background-color: #ffffff;
-    height: 50px;
-    border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
-    & .rightContainer {
+.topRowContainer {
+  background-color: #ffffff;
+  height: 50px;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.1);
+  & .rightContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+
+    & .logoutContainer {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      justify-content: center;
-  
+      flex-direction: row;
+      cursor: pointer;
       & .logoutContainer {
-        display: flex;
-        flex-direction: row;
-        cursor: pointer;
-        & .logoutContainer {
+        & .logOutIcon {
+          font-size: 16px;
+          margin-bottom: 5px;
+        }
+      }
+
+      & .nav-link {
+        font-family: "Roboto-Medium";
+        color: #000000;
+        font-size: 16px;
+        & .sidebar-icons-container {
+          margin: 0px 15px 0px 10px;
+          & .sidebar-icons {
+            font-size: 16px;
+            margin-bottom: 5px;
+          }
         }
       }
     }
   }
+}

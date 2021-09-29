@@ -8,7 +8,10 @@ const useHome = ({
   const [task, setTask] = useState(null);
 
   const addingTaskHandler = () => {
-    toDoDataListProps(task);
+    if (task) {
+      toDoDataListProps(task);
+    }
+
     setTask(null);
   };
 

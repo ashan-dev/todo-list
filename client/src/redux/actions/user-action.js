@@ -4,7 +4,6 @@ export const RESET_SIGN_IN_STATE = 'RESET_SIGN_IN_STATE';
 
 export const RESET_SIGN_IN_ERROR_STATE = 'RESET_SIGN_IN_ERROR_STATE';
 
-// --- firebase
 export const SET_FIREBASE_LOGIN_PENDING = 'SET_FIREBASE_LOGIN_PENDING';
 export const SET_FIREBASE_LOGIN_SUCCESS = 'SET_FIREBASE_LOGIN_SUCCESS';
 export const SET_FIREBASE_LOGIN_ERROR = 'SET_FIREBASE_LOGIN_ERROR';
@@ -12,6 +11,10 @@ export const SET_FIREBASE_LOGIN_ERROR = 'SET_FIREBASE_LOGIN_ERROR';
 export const SET_FIREBASE_LOGOUT_PENDING = 'SET_FIREBASE_LOGOUT_PENDING';
 export const SET_FIREBASE_LOGOUT_SUCCESS = 'SET_FIREBASE_LOGOUT_SUCCESS';
 export const SET_FIREBASE_LOGOUT_ERROR = 'SET_FIREBASE_LOGOUT_ERROR';
+
+export const SET_FIREBASE_UPDATE_USER_PENDING = 'SET_FIREBASE_UPDATE_USER_PENDING';
+export const SET_FIREBASE_UPDATE_USER_SUCCESS = 'SET_FIREBASE_UPDATE_USER_SUCCESS';
+export const SET_FIREBASE_UPDATE_USER_ERROR = 'SET_FIREBASE_UPDATE_USER_ERROR';
 
 
 const setLoginPending = isLoginPending => ({
@@ -52,6 +55,21 @@ const resetSignInState = () => ({
   type: RESET_SIGN_IN_STATE,
 });
 
+const setUserUpdatePending = isUserUpdatePending => ({
+  type: SET_FIREBASE_UPDATE_USER_PENDING,
+  isUserUpdatePending,
+});
+
+const setUserUpdateSuccess = (isUserUpdateSuccess, userData) => ({
+  type: SET_FIREBASE_UPDATE_USER_SUCCESS,
+  isUserUpdateSuccess,
+  userData
+});
+
+const setUserUpdateError = userUpdateError => ({
+  type: SET_FIREBASE_UPDATE_USER_ERROR,
+  userUpdateError,
+});
 export const loginAction = (loginData, onSuccessCallback) => {
   return async dispatch => {
     dispatch(setLoginPending(true));
@@ -69,6 +87,22 @@ export const loginAction = (loginData, onSuccessCallback) => {
   };
 };
 
+export const userUpdateAction = (userData, uid, onSuccessCallback) => {
+  return async dispatch => {
+    dispatch(setUserUpdatePending(true));
+    dispatch(setUserUpdateSuccess(false));
+    dispatch(setUserUpdateError(null));
+    try {
+      const updatedUserData = await firebase.auth().updateCurrentUser(userData);
+      dispatch(setUserUpdatePending(false));
+      dispatch(setUserUpdateSuccess(true, updatedUserData.user));
+      onSuccessCallback();
+    } catch (err) {
+      dispatch(setUserUpdateError({message: 'Network error'}));
+      throw err;
+    }
+  };
+};
 export const signInErrorResetAction = () => ({
   type: RESET_SIGN_IN_ERROR_STATE,
 });
