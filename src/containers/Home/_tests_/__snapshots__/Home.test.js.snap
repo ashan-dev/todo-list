@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home renders correctly 1`] = `
+<div
+  className="homeContainer container-fluid"
+>
+  <div
+    className="row"
+  >
+    <div
+      className="mb-3 row"
+    >
+      <div
+        className="addTaskContainer col-10 offset-1"
+      >
+        <input
+          className="form-control"
+          onChange={[Function]}
+          placeholder="Add a task"
+          type="text"
+          value=""
+        />
+        <div
+          className="buttonContainer"
+        >
+          <svg
+            className="button"
+            fill="currentColor"
+            height="1em"
+            onClick={[Function]}
+            stroke="currentColor"
+            strokeWidth="0"
+            style={
+              Object {
+                "color": "#8fd5ff",
+                "fontSize": 26,
+              }
+            }
+            viewBox="0 0 16 16"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clipRule="evenodd"
+              d="M16 8A8 8 0 110 8a8 8 0 0116 0zM8.5 4a.5.5 0 00-1 0v3.5H4a.5.5 0 000 1h3.5V12a.5.5 0 001 0V8.5H12a.5.5 0 000-1H8.5V4z"
+              fillRule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-10 offset-1"
+      />
+    </div>
+  </div>
+</div>
+`;
