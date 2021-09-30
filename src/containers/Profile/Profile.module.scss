@@ -1,0 +1,36 @@
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  & .title {
+    font-family: "Roboto-Bold";
+    color: #000000;
+    font-size: 26px;
+  }
+  & .userImage{
+      width: 150px;
+      height: 150px;
+      border: none;
+      cursor: pointer;
+  }
+
+  & .inputField {
+    border-radius: 4px;
+    border: 0.5px solid rgba(0, 0, 0, 0.2);
+    width: 350px;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  & .saveBtnContainer {
+    background-color: #8fd5ff;
+    border: none;
+    border-radius: 6px;
+    width:200px;
+    padding: 5px 10px;
+    font-family: "Roboto-Medium";
+    color: rgba(0, 0, 0, 0.9);
+    font-size: 16px;
+    margin-top: 10px;
+  }
+}

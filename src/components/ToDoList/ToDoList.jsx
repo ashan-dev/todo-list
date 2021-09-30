@@ -1,59 +1,23 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
-import ToDoItem from "./../ToDoItem/ToDoItem";
-import useTodoList from "./useToDoList.js";
+import TodoItem from "./../TodoItem/TodoItem";
+import useTodoList from "../../utils/useTodoList";
 
-const ToDoList = ({
-  todoList,
-  editedTask,
-  onEditTaskHandler,
-  editTaskHandler,
-  completedTaskHandler,
-  deletedTaskHandler,
-}) => {
-  const [pendingTodoList, completeTodoList] = useTodoList({ todoList });
+const TodoList = () => {
+  const { todos } = useTodoList();
   return (
-    <>
-      <Row>
-        <Col xs={{ span: 10, offset: 1 }}>
-          <>
-            {pendingTodoList && pendingTodoList.length > 0 && <p>Task to do</p>}
-            {pendingTodoList &&
-              pendingTodoList.length > 0 &&
-              pendingTodoList.map((task, id) => (
-                <ToDoItem
-                  key={id}
-                  task={task}
-                  id={task.key}
-                  editedTask={editedTask}
-                  completedTaskHandler={completedTaskHandler}
-                  deletedTaskHandler={deletedTaskHandler}
-                  onEditTaskHandler={onEditTaskHandler}
-                  editTaskHandler={editTaskHandler}
-                />
-              ))}
-          </>
-          <>
-            {completeTodoList && completeTodoList.length > 0 && (
-              <p>Completed</p>
-            )}
-            {completeTodoList &&
-              completeTodoList.length > 0 &&
-              completeTodoList.map((task, id) => (
-                <ToDoItem
-                  key={id}
-                  task={task}
-                  id={task.key}
-                  completedTaskHandler={completedTaskHandler}
-                  deletedTaskHandler={deletedTaskHandler}
-                  editTaskHandler={editTaskHandler}
-                />
-              ))}
-          </>
-        </Col>
-      </Row>
-    </>
+    <Row>
+      <Col style={{ marginTop: "10px" }} xs={{ span: 11, offset: 1 }}>
+        <>
+          {todos.length > 0 ? (
+            todos.map((id) => <TodoItem key={id} id={id} />)
+          ) : (
+            <span style={{ color: "darkorchid" }}>{"  "}Yay! No todos!</span>
+          )}
+        </>
+      </Col>
+    </Row>
   );
 };
 
-export default ToDoList;
+export default TodoList;

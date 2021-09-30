@@ -1,8 +1,8 @@
 import React from 'react'
 import renderer from 'react-test-renderer'
-import AddTodo from '../AddTodo.jsx'
+import VisibilityFilter from '../VisibilityFilter.jsx'
 test('AddTodo renders correctly', ()=>{
-    const component = renderer.create(<AddTodo />)
+    const component = renderer.create(<VisibilityFilter />)
     const tree = component.toJSON()
     expect(tree).toMatchSnapshot()
 })

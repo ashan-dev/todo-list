@@ -1,79 +1,68 @@
 import React, { useState } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
-import { userUpdateAction } from "../../redux/actions/user-action";
-import { connect } from "react-redux";
+import { Container, Button, Row, Col } from "react-bootstrap";
+import useProfile from "../../utils/useProfile";
+import defaultProfilePic from "../../assets/profile.png";
+import styles from "./Profile.module.scss";
 
-const Profile = ({ updateUser, loggedInUserData }) => {
-  const [userName, setUserName] = useState("");
-  const [email, setEmail] = useState("");
+const Profile = () => {
+  const {
+    name,
+    email,
+    image,
+    selectImage,
+    onNameChangeHandler,
+    onEmailChangeHandler,
+    onImageChangeHandler,
+    fileRef,
+    onFileChangeHandler,
+    saveProfile,
+  } = useProfile();
 
   return (
-    <div>
-      <p>User Profile</p>
+    <Container className={styles.mainContainer}>
+      <p className={styles.title}>User Profile</p>
       <Row>
-        <Col>Name : </Col>
-        <Col>
-          <input
-            type="text"
-            value={userName}
-            onChange={(event) => {
-              setUserName(event.target.value);
-            }}
-          />
-        </Col>
+        <img
+          className={styles.userImage}
+          
+          src={image || defaultProfilePic}
+          onClick={selectImage}
+        />
+        <input
+          id="selectImage"
+          hidden
+          type="file"
+          accept=".jpeg, .png, .jpg"
+          ref={fileRef}
+          onChange={onFileChangeHandler}
+        />
       </Row>
-      <Row>
-        <Col>Email : </Col>
-        <Col>
-          <input
-            name="email"
-            type="text"
-            value={email}
-            onChange={(event) => {
-              setEmail(event.target.value);
-            }}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Button
-            type="submit"
-            variant="primary"
-            size="lg"
-            onClick={() => {
-              let updateUserParams = {};
-              if (userName !== "") {
-                updateUserParams.displayName = userName;
-              }
-              if (email !== "") {
-                updateUserParams.email = email;
-              }
+      <br />
+      <div>
+        <input
+          className={styles.inputField}
+          placeholder="Enter your name"
+          type="text"
+          value={name}
+          onChange={onNameChangeHandler}
+        />
+      </div>
+      <div>
+        <input
+          className={styles.inputField}
+          placeholder="Enter your email"
+          name="email"
+          type="text"
+          value={email}
+          onChange={onEmailChangeHandler}
+        />
+      </div>
 
-              updateUser(updateUserParams, loggedInUserData.uid, () => {
-                alert("User updated successfully");
-              });
-            }}
-          >
-            Save
-          </Button>
-        </Col>
-      </Row>
-    </div>
+      <Button type="submit" className={styles.saveBtnContainer} onClick={saveProfile}>
+        Save
+      </Button>
+    </Container>
   );
 };
 
-const mapStateToProps = (state) => {
-  return {
-    loggedInUserData: state.userState.userData,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateUser: (userData, uid, successCallback) =>
-      dispatch(userUpdateAction(userData, uid, successCallback)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default Profile;

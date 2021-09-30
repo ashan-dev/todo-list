@@ -1,39 +1,50 @@
-export const ADD_TODO_DATA_STATE = "ADD_TODO_DATA_STATE";
-export const UPDATE_TODO_DATE_STATE = "UPDATE_TODO_DATE_STATE";
-export const DELETE_TODO_TASK_STATE = "DELETE_TODO_TASK_STATE";
+export const ADD_TODO = "ADD_TODO";
+export const EDIT_TODO = "EDIT_TODO";
+export const DELETE_TODO = "DELETE_TODO";
+export const TOGGLE_TODO = "TOGGLE_TODO";
+// export const CLEAR_TODO_LIST = "CLEAR_TODO_LIST";
 
-const addToDoData = (addToDoData) => ({
-  type: ADD_TODO_DATA_STATE,
-  addToDoData,
+const addTodo = (text) => ({
+  type: ADD_TODO,
+  text,
 });
 
-const updateToDoData = (toDoTaskId) => ({
-  type: UPDATE_TODO_DATE_STATE,
-  toDoTaskId,
+const editTodo = (id, text) => ({
+  type: EDIT_TODO,
+  id,
+  text,
 });
 
-const deleteTaskData = (deleteTaskId) =>({
-  type: DELETE_TODO_TASK_STATE,
-  deleteTaskId,
-})
+const toggleTodo = (id) => ({
+  type: TOGGLE_TODO,  // toggle todo complete state
+  id,
+});
 
-export const toDoDataListAction = (singleAddedData) => {
+const deleteTodo = (id) => ({
+  type: DELETE_TODO,
+  id,
+});
+
+export const addTodoAction = (text) => {
   return async (dispatch) => {
-    dispatch(addToDoData(singleAddedData));
+    dispatch(addTodo(text));
   };
 };
 
-export const updateToDoDatalistAction = (toDoTaskId) => {
+export const editTodoAction = (id, text) => {
   return async (dispatch) => {
-    dispatch(updateToDoData(toDoTaskId));
+    dispatch(editTodo(id, text));
   };
 };
 
-export const deleteToDoDatalistAction = (deleteTaskId) => {
+export const toggleTodoAction = (id) => {
   return async (dispatch) => {
-    dispatch(deleteTaskData(deleteTaskId));
+    dispatch(toggleTodo(id));
   };
 };
 
-
-
+export const deleteTodoAction = (id) => {
+  return async (dispatch) => {
+    dispatch(deleteTodo(id));
+  };
+};

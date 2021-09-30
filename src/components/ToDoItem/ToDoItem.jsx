@@ -1,59 +1,92 @@
 import React from "react";
 import { FiCircle, FiCheckCircle, FiEdit } from "react-icons/fi";
+import { FcCheckmark, FcCancel } from "react-icons/fc";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Form, Row, Col } from "react-bootstrap";
-import styles from "./ToDoItem.module.scss";
+import styles from "./TodoItem.module.scss";
+import useTodoItem from "../../utils/useTodoItem";
 
-const ToDoItem = ({
-  task,
-  editedTask,
-  id,
-  onEditTaskHandler,
-  editTaskHandler,
-  completedTaskHandler,
-  deletedTaskHandler,
-}) => {
+const TodoItem = ({ id }) => {
+  const {
+    text,
+    completed,
+    isEditing,
+    toggleCompletedHandler,
+    onChangeHandler,
+    onKeyUpHandler,
+    onEditStartTodoHandler,
+    onEditDoneTodoHandler,
+    onEditCancelTodoHandler,
+    onDeleteTodoHandler,
+  } = useTodoItem(id);
+
   return (
-    <div key={id} className={styles.toDoItem}>
-      {!task.completed ? (
-        <FiCircle
-          onClick={() => completedTaskHandler(id)}
-          style={{ color: "#000000", fontSize: 26 }}
-        />
-      ) : (
-        <FiCheckCircle style={{ color: "#71D93F", fontSize: 26 }} />
-      )}
-      {task.task && !task.completed && (
+    <div key={id} className={styles.todoItem}>
+      {!isEditing &&
+        (!completed ? (
+          <FiCircle
+            onClick={toggleCompletedHandler}
+            style={{ color: "#000000", fontSize: 26, cursor:'pointer' }}
+          />
+        ) : (
+          <FiCheckCircle
+            onClick={toggleCompletedHandler}
+            style={{ color: "#71D93F", fontSize: 26, cursor:'pointer' }}
+          />
+        ))}
+      {!completed && (
         <>
-          <Form.Control
-            onChange={(e) => {
-              onEditTaskHandler(e.target.value, task.key);
-            }}
-            type="text"
-            value={task ? task.task : editedTask}
-            placeholder="Add a task"
-          />
-  
-          <FiEdit
-            onClick={() => editTaskHandler(task.key)}
-            style={{ color: "red", fontSize: 26 }}
-          />
+          <div
+            className={styles.inputWrapper}
+            onDoubleClick={onEditStartTodoHandler}
+          >
+            <Form.Control
+              onChange={onChangeHandler}
+              onKeyUp={onKeyUpHandler}
+              type="text"
+              value={text}
+              disabled={!isEditing}
+              style={{ marginRight: "20px", width: "300px" }}
+            />
+            {isEditing ? (
+              <>
+                <FcCancel
+                  onClick={onEditCancelTodoHandler}
+                  className={styles.button}
+                  style={{ color: "red", fontSize: 26,cursor:'pointer' }}
+                />
+                <span style={{ width: "12px" }}></span>
+                <FcCheckmark
+                  onClick={onEditDoneTodoHandler}
+                  className={styles.button}
+                  style={{ color: "#8fd5ff", fontSize: 26, cursor:'pointer' }}
+                />
+              </>
+            ) : (
+              <FiEdit
+                onClick={onEditStartTodoHandler}
+                style={{ color: "blue", fontSize: 26, cursor:'pointer' }}
+              />
+            )}
+          </div>
         </>
       )}
-      {task.task && task.completed && (
-        <div className={styles.textField}>
-          <p>{task.task}</p>
+      {completed && (
+        <div className={styles.inputWrapper}>
+          <Form.Control style={{ width: "300px",cursor:'pointer' }} type="text" value={text} disabled={true} />
         </div>
       )}
 
-      <div className={styles.leftIcon}>
-        <RiDeleteBin6Line
-          onClick={() => deletedTaskHandler(task.key)}
-          style={{ color: "red", fontSize: 26 }}
-        />
-      </div>
+      {!isEditing && (
+        <div className={styles.leftIcon}>
+          <RiDeleteBin6Line
+            onClick={onDeleteTodoHandler}
+            style={{ color: "red", fontSize: 26, cursor:'pointer' }}
+          />
+        </div>
+      )}
     </div>
   );
 };
 
-export default ToDoItem;
+export default TodoItem;

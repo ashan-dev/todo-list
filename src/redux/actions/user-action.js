@@ -1,22 +1,37 @@
-import firebase from '../../firebase';
+import firebase from "../../firebase";
 
-export const RESET_SIGN_IN_STATE = 'RESET_SIGN_IN_STATE';
+export const RESET_SIGN_IN_STATE = "RESET_SIGN_IN_STATE";
 
-export const RESET_SIGN_IN_ERROR_STATE = 'RESET_SIGN_IN_ERROR_STATE';
+export const RESET_SIGN_IN_ERROR_STATE = "RESET_SIGN_IN_ERROR_STATE";
 
-export const SET_FIREBASE_LOGIN_PENDING = 'SET_FIREBASE_LOGIN_PENDING';
-export const SET_FIREBASE_LOGIN_SUCCESS = 'SET_FIREBASE_LOGIN_SUCCESS';
-export const SET_FIREBASE_LOGIN_ERROR = 'SET_FIREBASE_LOGIN_ERROR';
+export const SET_FIREBASE_LOGIN_PENDING = "SET_FIREBASE_LOGIN_PENDING";
+export const SET_FIREBASE_LOGIN_SUCCESS = "SET_FIREBASE_LOGIN_SUCCESS";
+export const SET_FIREBASE_LOGIN_ERROR = "SET_FIREBASE_LOGIN_ERROR";
 
-export const SET_FIREBASE_LOGOUT_PENDING = 'SET_FIREBASE_LOGOUT_PENDING';
-export const SET_FIREBASE_LOGOUT_SUCCESS = 'SET_FIREBASE_LOGOUT_SUCCESS';
-export const SET_FIREBASE_LOGOUT_ERROR = 'SET_FIREBASE_LOGOUT_ERROR';
+export const SET_FIREBASE_LOGOUT_PENDING = "SET_FIREBASE_LOGOUT_PENDING";
+export const SET_FIREBASE_LOGOUT_SUCCESS = "SET_FIREBASE_LOGOUT_SUCCESS";
+export const SET_FIREBASE_LOGOUT_ERROR = "SET_FIREBASE_LOGOUT_ERROR";
 
 export const SET_FIREBASE_UPDATE_USER_PENDING =
-  'SET_FIREBASE_UPDATE_USER_PENDING';
+  "SET_FIREBASE_UPDATE_USER_PENDING";
 export const SET_FIREBASE_UPDATE_USER_SUCCESS =
-  'SET_FIREBASE_UPDATE_USER_SUCCESS';
-export const SET_FIREBASE_UPDATE_USER_ERROR = 'SET_FIREBASE_UPDATE_USER_ERROR';
+  "SET_FIREBASE_UPDATE_USER_SUCCESS";
+export const SET_FIREBASE_UPDATE_USER_ERROR = "SET_FIREBASE_UPDATE_USER_ERROR";
+
+export const SAVE_PROFILE = "SAVE_PROFILE";
+
+const saveProfile = ({image, name, email}) => ({
+  type: SAVE_PROFILE,
+  image,
+  name,
+  email,
+});
+
+export const saveProfileAction = (image, name, email) => {
+  return async (dispatch) => {
+    dispatch(saveProfile(image, name, email));
+  };
+};
 
 const setLoginPending = (isLoginPending) => ({
   type: SET_FIREBASE_LOGIN_PENDING,
@@ -82,13 +97,13 @@ export const loginAction = (loginData, onSuccessCallback) => {
       dispatch(setLoginSuccess(true, userData.user));
       onSuccessCallback();
     } catch (err) {
-      dispatch(setLoginError({ message: 'Network error' }));
+      dispatch(setLoginError({ message: "Network error" }));
       throw err;
     }
   };
 };
 
-export const userUpdateAction = (userData, uid, onSuccessCallback) => {
+export const userUpdateAction = (userData, _uid, onSuccessCallback) => {
   return async (dispatch) => {
     dispatch(setUserUpdatePending(true));
     dispatch(setUserUpdateSuccess(false));
@@ -99,7 +114,7 @@ export const userUpdateAction = (userData, uid, onSuccessCallback) => {
       dispatch(setUserUpdateSuccess(true, updatedUserData.user));
       onSuccessCallback();
     } catch (err) {
-      dispatch(setUserUpdateError({ message: 'Network error' }));
+      dispatch(setUserUpdateError({ message: "Network error" }));
       throw err;
     }
   };
@@ -121,7 +136,7 @@ export const logOutAction = (onSuccessCallback) => {
       dispatch(setLogOutSuccess(true));
       onSuccessCallback();
     } catch (err) {
-      dispatch(setLogOutError({ message: 'Logout error' }));
+      dispatch(setLogOutError({ message: "Logout error" }));
       throw err;
     }
   };

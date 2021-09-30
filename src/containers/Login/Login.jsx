@@ -1,13 +1,13 @@
 import React from "react";
 import { Redirect } from "react-router";
 import { connect } from "react-redux";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import { handleLogin } from "./Login.js";
 import { loginAction } from "../../redux/actions/user-action";
 import styles from "./Login.module.scss";
 
 const Login = ({ login, loggedInUserData }) => {
-  const history = useHistory()
+  const history = useHistory();
   if (loggedInUserData && Object.keys(loggedInUserData).length > 0) {
     return <Redirect to="/" />;
   } else {
@@ -23,12 +23,24 @@ const Login = ({ login, loggedInUserData }) => {
             }}
           >
             <div>
-              <input className={styles.inputField} name="email" type="email" placeholder="Email" />
+              <input
+                className={styles.inputField}
+                name="email"
+                type="email"
+                placeholder="Email"
+              />
             </div>
             <div>
-              <input className={styles.inputField} name="password" type="password" placeholder="Password" />
+              <input
+                className={styles.inputField}
+                name="password"
+                type="password"
+                placeholder="Password"
+              />
             </div>
-            <button className={styles.loginBtnContainer} type="submit">Log in</button>
+            <button className={styles.loginBtnContainer} type="submit">
+              Log in
+            </button>
           </form>
         </div>
       </div>

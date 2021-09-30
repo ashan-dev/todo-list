@@ -2,8 +2,6 @@
 
 ### `npm install`
 
-# Rename .env.sample as .env
-
 # Getting Started with Todo-List-App
 
 ### `npm start`

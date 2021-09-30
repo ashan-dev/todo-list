@@ -6,7 +6,8 @@ const useHome = ({
   deleteToDoDatalistProps,
 }) => {
   const [task, setTask] = useState(null);
-  const [editedTask, setEditedTask] = useState(null);
+  const [editTask, setEditTask] = useState(null);
+  const [editedTaskId, setEditedTaskId] = useState(null);
 
   const addingTaskHandler = () => {
     if (task) {
@@ -22,13 +23,13 @@ const useHome = ({
     });
   };
 
-  const onEditTaskHandler = (task) => {
-    setEditedTask(task);
+  const onEditTaskHandler = (value, id) => {
+    setEditTask(value);
+    setEditedTaskId(id);
   };
 
   const editTaskHandler = (id) => {
-    alert("test");
-    console.log(id);
+    setEditedTaskId(id);
   };
 
   const completedTaskHandler = (id) => {
@@ -42,13 +43,14 @@ const useHome = ({
   return [
     {
       task,
-      editedTask,
+      editedTaskId,
       addingTaskHandler,
       onChangeTaskHandler,
       onEditTaskHandler,
       completedTaskHandler,
       deletedTaskHandler,
       editTaskHandler,
+      editTask
     },
   ];
 };

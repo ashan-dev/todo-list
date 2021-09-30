@@ -6,7 +6,7 @@ import Home from '../Home.jsx';
 
 const mockStore = configureMockStore();
 const store = mockStore({
-  toDoListState: [],
+  todoList: [],
 });
 
 test('Home renders correctly', () => {

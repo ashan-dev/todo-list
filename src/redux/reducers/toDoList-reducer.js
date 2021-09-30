@@ -1,42 +1,69 @@
 import {
-  ADD_TODO_DATA_STATE,
-  UPDATE_TODO_DATE_STATE,
-  DELETE_TODO_TASK_STATE,
-} from '../actions/toDoList-action';
+  ADD_TODO,
+  EDIT_TODO,
+  DELETE_TODO,
+  TOGGLE_TODO,
+} from "../actions/todoList-action";
+import { nanoid } from "nanoid";
 
-const initialState = {
-  taskList: [],
+export const initialState = {
+  allIds: [],
+  byIds: {},
 };
 
-const toDoListReducer = (state = initialState, action) => {
+export const todoListReducer = function (state = initialState, action) {
   switch (action.type) {
-    case ADD_TODO_DATA_STATE:
-      const taskList = state?.taskList || [];
-      const addedTaskArray = [...taskList, action.addToDoData];
-      return { ...state, taskList: addedTaskArray };
-
-    case UPDATE_TODO_DATE_STATE:
-      const toDoListArr = state?.taskList.map((dataObj, index) => {
-        if (index === action.toDoTaskId) {
-          return {
-            ...dataObj,
-            completed: true,
-          };
-        } else {
-          return dataObj;
-        }
-      });
-      return { ...state, taskList: toDoListArr };
-
-    case DELETE_TODO_TASK_STATE:
-      console.log('test');
-      const filteredArr = state.taskList.filter(
-        (dataObj, index) => index !== action.deleteTaskId
-      );
-      return { ...state, taskList: filteredArr };
+    case ADD_TODO: {
+      const { text } = action;
+      const id = nanoid();
+      return {
+        ...state,
+        allIds: [...state.allIds, id],
+        byIds: {
+          ...state.byIds,
+          [id]: {
+            text,
+            completed: false,
+          },
+        },
+      };
+    }
+    case DELETE_TODO: {
+      const { id } = action;
+      const { [id]: removedId, ...byIds } = state.byIds; // destructure rest trick
+      return {
+        ...state,
+        allIds: state.allIds.filter((exitstingId) => exitstingId != id),
+        byIds,
+      };
+    }
+    case TOGGLE_TODO: {
+      let { id } = action;
+      return {
+        ...state,
+        byIds: {
+          ...state.byIds,
+          [id]: {
+            ...state.byIds[id],
+            completed: !state.byIds[id].completed,
+          },
+        },
+      };
+    }
+    case EDIT_TODO: {
+      let { id, text } = action;
+      return {
+        ...state,
+        byIds: {
+          ...state.byIds,
+          [id]: {
+            ...state.byIds[id],
+            text,
+          },
+        },
+      };
+    }
     default:
       return state;
   }
 };
-
-export default toDoListReducer;

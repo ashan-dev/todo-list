@@ -1,4 +1,5 @@
 import {
+  SAVE_PROFILE,
   SET_FIREBASE_LOGIN_PENDING,
   SET_FIREBASE_LOGIN_ERROR,
   SET_FIREBASE_LOGIN_SUCCESS,
@@ -6,8 +7,7 @@ import {
   SET_FIREBASE_LOGOUT_SUCCESS,
   SET_FIREBASE_LOGOUT_PENDING,
   RESET_SIGN_IN_STATE,
-} from '../actions/user-action';
-
+} from "../actions/user-action";
 
 const initialState = {
   isLoginSuccess: false,
@@ -19,44 +19,50 @@ const initialState = {
   isLogOutSuccess: false,
   isLogOutPending: false,
   logOutError: null,
-
+  name: "",
+  email: "",
+  image: "",
 };
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SAVE_PROFILE: {
+      const { image, name, email } = action;
+      return { ...state, image, name, email };
+    }
     case SET_FIREBASE_LOGOUT_PENDING:
-      return {...state, isLogOutPending: action.isLogOutPending};
+      return { ...state, isLogOutPending: action.isLogOutPending };
     case SET_FIREBASE_LOGOUT_SUCCESS:
-      if(action.isLogOutSuccess){
+      if (action.isLogOutSuccess) {
         return {
           ...state,
           isLoginSuccess: false,
           userData: {},
         };
-      }else{
+      } else {
         return state;
       }
     case SET_FIREBASE_LOGOUT_ERROR:
-      return {...state, logOutError: action.logOutError};
-    
+      return { ...state, logOutError: action.logOutError };
+
     case RESET_SIGN_IN_STATE:
-      return {...initialState};
+      return { ...initialState };
 
     case SET_FIREBASE_LOGIN_PENDING:
       return {
-        ...state, 
-        isLoginPending: action.isLoginPending
+        ...state,
+        isLoginPending: action.isLoginPending,
       };
     case SET_FIREBASE_LOGIN_SUCCESS:
       return {
-        ...state, 
+        ...state,
         isLoginSuccess: action.isLoginSuccess,
-        userData : action.userData
+        userData: action.userData,
       };
     case SET_FIREBASE_LOGIN_ERROR:
       return {
-        ...state, 
-        loginError: action.loginError
+        ...state,
+        loginError: action.loginError,
       };
     default:
       return state;
