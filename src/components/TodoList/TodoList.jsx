@@ -9,7 +9,7 @@ const TodoList = () => {
     <Row>
       <Col style={{ marginTop: "10px" }} xs={{ span: 11, offset: 1 }}>
         <>
-          {todos.length > 0 ? (
+          {todos && todos.length > 0 ? (
             todos.map((id) => <TodoItem key={id} id={id} />)
           ) : (
             <span style={{ color: "darkorchid" }}>{"  "}Yay! No todos!</span>

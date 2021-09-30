@@ -1,5 +1,5 @@
 import React from "react";
-import {  Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { FiLogOut } from "react-icons/fi";
 import { logOutAction } from "../../redux/actions/user-action";
 import { connect } from "react-redux";
@@ -14,13 +14,11 @@ const NavBar = ({ logOut }) => {
           className={styles.logoutContainer}
           onClick={() =>
             logOut(() => {
-              return <Redirect to="/" />
+              return <Redirect to="/" />;
             })
           }
         >
-          <span className={styles.logOutIcon}>
-            <FiLogOut />
-          </span>
+          <FiLogOut className={styles.logOutIcon} />
           <p className={styles.logoutText}>Log Out</p>
         </div>
       </Col>

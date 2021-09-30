@@ -1,5 +1,3 @@
-import { getFilter } from "./todoFilter-selectors";
-
 const getTodoList = ({ todoList }) => todoList;
 
 export const getAllTodoIds = (state) => {

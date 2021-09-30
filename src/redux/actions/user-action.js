@@ -97,7 +97,8 @@ export const loginAction = (loginData, onSuccessCallback) => {
       dispatch(setLoginSuccess(true, userData.user));
       onSuccessCallback();
     } catch (err) {
-      dispatch(setLoginError({ message: "Network error" }));
+      alert(err)
+      dispatch(setLoginError(err.message));
       throw err;
     }
   };
