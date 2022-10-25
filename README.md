@@ -1,6 +1,5 @@
 <div align="center">
-<h1>Swivel</h1>
-<h2>Todo List ReactJS Web Application</h2>
+<h1>Todo List</h1>
 <p>Simple to do tasks manager</p>
 </div>
 <hr />
